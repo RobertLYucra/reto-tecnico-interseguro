@@ -1,7 +1,7 @@
-version: '3.8'
+version: '1.0'
 services:
   go-matrix-processor:
-    build: ./go-matrix-processor
+    build: ./go-api-matrix-processor
     ports:
       - "8080:8080"
     environment:
@@ -11,7 +11,7 @@ services:
       - node-stats-analyzer
   
   node-stats-analyzer:
-    build: ./node-stats-analyzer
+    build: ./node-api-stats-analyzer
     ports:
       - "3000:3000"
     environment:
