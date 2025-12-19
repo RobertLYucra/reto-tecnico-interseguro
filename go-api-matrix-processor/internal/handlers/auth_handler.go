@@ -15,13 +15,13 @@ func NewAuthHandler(s *service.AuthService) *AuthHandler {
 	return &AuthHandler{Service: s}
 }
 
-// LoginRequest defines the body for login
+// LoginRequest define el cuerpo para el inicio de sesión
 type LoginRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
-// Login handles authentication and token generation
+// Login maneja la autenticación y la generación de tokens
 func (h *AuthHandler) Login(c *fiber.Ctx) error {
 	var req LoginRequest
 	if err := c.BodyParser(&req); err != nil {

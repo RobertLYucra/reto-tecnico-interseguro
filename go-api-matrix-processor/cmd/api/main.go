@@ -21,25 +21,24 @@ func main() {
 	// Middleware de logging
 	app.Use(logger.New())
 
-	// Enable CORS (Critical for Frontend)
+	// Habilitar CORS (Crítico para el Frontend)
 	app.Use(cors.New())
 
-	// Initialize layers (Manual Dependency Injection)
-	// Initialize layers (Manual Dependency Injection)
+	// Inicializar capas (Inyección de dependencias manual)
 	matrixService := service.NewMatrixService()
 	matrixHandler := handlers.NewMatrixHandler(matrixService)
 
 	authService := service.NewAuthService()
 	authHandler := handlers.NewAuthHandler(authService)
 
-	// Define routes
+	// Definir rutas
 	api := app.Group("/api")
 	v1 := api.Group("/v1")
 
-	// Public Routes
+	// Rutas públicas
 	v1.Post("/login", authHandler.Login)
 
-	// Protected Routes (Apply Middleware)
+	// Rutas protegidas (Aplicar middleware)
 	v1.Post("/process", middleware.Protected(), matrixHandler.ProcessMatrix)
 
 	// Puerto desde variable de entorno

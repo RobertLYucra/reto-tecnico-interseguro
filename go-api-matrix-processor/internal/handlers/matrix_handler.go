@@ -20,7 +20,7 @@ func NewMatrixHandler(s *service.MatrixService) *MatrixHandler {
 	return &MatrixHandler{Service: s}
 }
 
-// ProcessMatrix handles the matrix processing request
+// ProcessMatrix maneja la solicitud de procesamiento de matriz
 func (h *MatrixHandler) ProcessMatrix(c *fiber.Ctx) error {
 	var input models.InputMatrix
 	if err := c.BodyParser(&input); err != nil {
@@ -37,7 +37,7 @@ func (h *MatrixHandler) ProcessMatrix(c *fiber.Ctx) error {
 		R: rMatrix,
 	}
 
-	// Send to Node.js API
+	// Enviar a la API de Node.js
 	nodeURL := os.Getenv("NODE_API_URL")
 	if nodeURL == "" {
 		nodeURL = "http://localhost:3000/stats"
@@ -79,7 +79,7 @@ func (h *MatrixHandler) ProcessMatrix(c *fiber.Ctx) error {
 		return c.Status(502).JSON(utils.ErrorResponse("Error recibido de Node.js", errorDetail))
 	}
 
-	// Merge Stats with Q and R matrices for full response
+	// Combinar estadísticas con matrices Q y R para la respuesta completa
 	fullResponse := models.FullResponse{
 		StatsResponse: nodeJSResponse.Data,
 		Q:             qMatrix,

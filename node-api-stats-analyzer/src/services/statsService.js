@@ -4,16 +4,13 @@ class StatsService {
       throw new Error("Invalid or empty matrices");
     }
 
-    // 1. Flatten all values for stats (Declarative & Clean)
     const allValues = [...qMatrix.flat(), ...rMatrix.flat()];
 
     if (allValues.length === 0) throw new Error("No data to process");
 
-    // 2. Independent Diagonal Checks
     const isQDiagonal = this._isDiagonal(qMatrix);
     const isRDiagonal = this._isDiagonal(rMatrix);
 
-    // 3. Calculate Stats
     const sum = allValues.reduce((a, b) => a + b, 0);
 
     return {
@@ -33,12 +30,8 @@ class StatsService {
   }
 
   _isDiagonal(matrix) {
-    // "Senior" Approach: Functional .every() instead of nested loops
-    // Returns true if ALL non-diagonal elements are effectively 0
     return matrix.every((row, i) =>
       row.every((val, j) => {
-        // If it's the diagonal (i===j), any value is fine.
-        // If it's NOT the diagonal, value must be 0.
         return i === j || Math.abs(val) <= 1e-9;
       })
     );

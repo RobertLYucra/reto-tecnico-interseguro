@@ -13,7 +13,7 @@ func NewMatrixService() *MatrixService {
 	return &MatrixService{}
 }
 
-// CalculateQR processes the input matrix and returns Q and R matrices
+// CalculateQR procesa la matriz de entrada y retorna las matrices Q y R
 func (s *MatrixService) CalculateQR(inputMatrix models.Matrix) (models.Matrix, models.Matrix, error) {
 	if len(inputMatrix) == 0 {
 		return nil, nil, errors.New("input matrix cannot be empty")
@@ -22,7 +22,7 @@ func (s *MatrixService) CalculateQR(inputMatrix models.Matrix) (models.Matrix, m
 	rows := len(inputMatrix)
 	cols := len(inputMatrix[0])
 
-	// Flatten 2D slice to 1D slice for gonum
+	// Aplanar slice 2D a 1D para gonum
 	data := make([]float64, 0, rows*cols)
 	for _, row := range inputMatrix {
 		if len(row) != cols {
@@ -31,7 +31,7 @@ func (s *MatrixService) CalculateQR(inputMatrix models.Matrix) (models.Matrix, m
 		data = append(data, row...)
 	}
 
-	// 1. Rotate Matrix 90 degrees counter-clockwise
+	// 1. Rotar matriz 90 grados en sentido antihorario
 	// Requirement: Recibe original -> Rota -> Calcula QR
 	rotatedMatrix := s.rotateMatrixCounterClockwise(inputMatrix)
 
@@ -39,14 +39,14 @@ func (s *MatrixService) CalculateQR(inputMatrix models.Matrix) (models.Matrix, m
 	cols = len(rotatedMatrix[0])
 	data = make([]float64, 0, rows*cols)
 
-	// Flatten rotated matrix
+	// Aplanar matriz rotada
 	for _, row := range rotatedMatrix {
 		data = append(data, row...)
 	}
 
 	dense := mat.NewDense(rows, cols, data)
 
-	// Perform QR Decomposition
+	// Realizar descomposición QR
 	var qr mat.QR
 	qr.Factorize(dense)
 
@@ -57,12 +57,12 @@ func (s *MatrixService) CalculateQR(inputMatrix models.Matrix) (models.Matrix, m
 	return denseToSlice(&q), denseToSlice(&r), nil
 }
 
-// rotateMatrixCounterClockwise rotates the matrix 90 degrees counter-clockwise
+// rotateMatrixCounterClockwise rota la matriz 90 grados en sentido antihorario
 func (s *MatrixService) rotateMatrixCounterClockwise(matrix models.Matrix) models.Matrix {
 	rows := len(matrix)
 	cols := len(matrix[0])
 
-	// Function: (i, j) -> (cols - 1 - j, i)
+	// Función: (i, j) -> (cols - 1 - j, i)
 	newRows, newCols := cols, rows
 	result := make(models.Matrix, newRows)
 

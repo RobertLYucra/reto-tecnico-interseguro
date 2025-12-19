@@ -14,21 +14,21 @@ func NewAuthService() *AuthService {
 	return &AuthService{}
 }
 
-// Authenticate checks credentials and returns a JWT token if valid
+// Authenticate verifica las credenciales y retorna un token JWT si son válidas
 func (s *AuthService) Authenticate(username, password string) (string, error) {
-	// Mock Authentication (Check DB in production)
+	// Autenticación simulada (Verificar BD en producción)
 	if username != "admin" || password != "admin" {
 		return "", errors.New("credenciales incorrectas")
 	}
 
-	// Create Token
+	// Crear Token
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["username"] = username
-	// 3 days expiration
+	// 3 días de expiración
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
-	// Sign Token
+	// Firmar Token
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
 		secret = "supersecretkey" // Fallback for dev

@@ -11,7 +11,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-// Protected protects routes passing only valid JWTs
+// Protected protege las rutas pasando solo JWTs válidos
 func Protected() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
@@ -41,7 +41,7 @@ func Protected() fiber.Handler {
 			return c.Status(401).JSON(utils.ErrorResponse("Token inválido o expirado", err.Error()))
 		}
 
-		// Store user in locals if needed
+		// Guardar usuario en locals si es necesario
 		// claims := token.Claims.(jwt.MapClaims)
 		// c.Locals("user", claims["username"])
 
