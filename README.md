@@ -43,10 +43,83 @@ Para iniciar sesión en la aplicación:
 - **Usuario**: `admin`
 - **Contraseña**: `admin`
 
-## ✅ Endpoints Principales
+## 📡 Documentación de la API
 
-- `POST /api/v1/login`: Generación de Token JWT.
-- `POST /api/v1/process`: Procesa la matriz (Requiere Header `Authorization: Bearer <token>`).
+### 1. Autenticación (Login)
+
+Genera un Token JWT para acceder a los endpoints protegidos.
+
+- **URL**: `/api/v1/login`
+- **Método**: `POST`
+
+**Body (JSON):**
+
+```json
+{
+  "username": "admin",
+  "password": "admin"
+}
+```
+
+**Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": true,
+  "message": "Login exitoso",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}
+```
+
+---
+
+### 2. Procesar Matriz
+
+Rota la matriz 90° anti-horaria, realiza la factorización QR y calcula estadísticas.
+
+- **URL**: `/api/v1/process`
+- **Método**: `POST`
+- **Headers**:
+  - `Authorization`: `Bearer <TU_TOKEN_JWT>`
+
+**Body (JSON):**
+
+```json
+{
+  "data": [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ]
+}
+```
+
+**Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": true,
+  "message": "Matriz procesada correctamente",
+  "data": {
+    "q": [
+      [ -0.333, 0.666, -0.666 ],
+      ...
+    ],
+    "r": [
+      [ -9.0, 0.0, 0.0 ],
+      ...
+    ],
+    "max": 9,
+    "min": 1,
+    "average": 5,
+    "total_sum": 45,
+    "is_q_diagonal": false,
+    "is_r_diagonal": false
+  }
+}
+```
 
 ## 🧪 Tests
 
