@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  go-matrix-processor:
+    build: ./go-matrix-processor
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_API_URL=http://node-stats-analyzer:3000/stats
+      - PORT=8080
+    depends_on:
+      - node-stats-analyzer
+  
+  node-stats-analyzer:
+    build: ./node-stats-analyzer
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - go-matrix-processor

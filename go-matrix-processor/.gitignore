@@ -1,0 +1,22 @@
+# Binaries
+/bin/
+*.exe
+*.test
+main
+go-matrix-processor
+interseguro-go-matrix-processor
+
+# Env
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage.out
