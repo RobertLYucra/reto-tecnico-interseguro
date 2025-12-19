@@ -23,6 +23,30 @@ El sistema consta de 3 servicios contenerizados:
     - **Tecnología**: React + Vite + TailwindCSS.
     - **Funcionalidad**: Dashboard interactivo para ingresar matrices y visualizar resultados (Tablas y Stats).
 
+### Diagrama de Flujo
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant GoMatrix as Go Backend (Matrix)
+    participant NodeStats as Node Backend (Stats)
+
+    User->>Frontend: Ingresa Matriz
+    Frontend->>GoMatrix: POST /process (JWT + Matrix)
+    activate GoMatrix
+    Note right of GoMatrix: 1. Rotación 90°
+    Note right of GoMatrix: 2. Factorización QR
+    GoMatrix->>NodeStats: POST /stats (Q, R)
+    activate NodeStats
+    Note right of NodeStats: 3. Estadísticas (Max, Min, Avg, etc)
+    NodeStats-->>GoMatrix: JSON {max, min, avg...}
+    deactivate NodeStats
+    GoMatrix-->>Frontend: JSON {Q, R, Stats}
+    deactivate GoMatrix
+    Frontend-->>User: Muestra Resultados
+```
+
 ## 🛠️ Cómo Ejecutar
 
 Requisitos: Docker y Docker Compose.
