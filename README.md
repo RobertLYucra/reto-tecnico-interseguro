@@ -36,36 +36,6 @@ docker compose up --build
 
 3.  Acceder al Frontend en: **[http://localhost:5173](http://localhost:5173)**
 
----
-
-## 🔧 Instalación y Ejecución Manual (Sin Docker)
-
-Si prefieres ejecutar cada servicio individualmente en tu máquina local:
-
-### 1. Go Backend (Puerto 8080)
-
-```bash
-cd go-matrix-processor
-go mod tidy       # Instalar dependencias
-go run cmd/api/main.go
-```
-
-### 2. Node.js Backend (Puerto 3000)
-
-```bash
-cd node-stats-analyzer
-npm install       # Instalar dependencias
-npm start
-```
-
-### 3. Frontend (Puerto 5173)
-
-```bash
-cd frontend
-npm install       # Instalar dependencias
-npm run dev
-```
-
 ## 🔑 Credenciales
 
 Para iniciar sesión en la aplicación:
@@ -167,4 +137,32 @@ go test ./...
 ```bash
 cd node-stats-analyzer
 npm test
+```
+
+## 🔧 Instalación y Ejecución Manual (Sin Docker)
+
+Si prefieres ejecutar cada servicio individualmente en tu máquina local:
+
+### 1. Go Backend (Puerto 8080)
+
+```bash
+cd go-matrix-processor
+go mod tidy       # Instalar dependencias
+go run cmd/api/main.go
+```
+
+### 2. Node.js Backend (Puerto 3000)
+
+```bash
+cd node-stats-analyzer
+npm install       # Instalar dependencias
+npm start
+```
+
+### 3. Frontend (Puerto 5173)
+
+```bash
+cd frontend
+npm install       # Instalar dependencias
+npm run dev
 ```
